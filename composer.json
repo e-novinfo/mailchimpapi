@@ -1,0 +1,28 @@
+{
+    "name": "enovinfo/mailchimpapi",
+    "description": "Simple project using MailChimp API v3",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*",
+        "vlucas/phpdotenv": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "enovinfo\\MailChimpApi\\": "app"
+        }
+    },
+    "homepage": "https://github.com/enovinfo/mailchimpapi",
+    "authors": [ 
+        {
+            "name": "e-novinfo",
+            "email": "webmaster@e-novinfo.ch",
+            "homepage": "http://www.e-novinfo.ch/"
+
+        }
+    ]
+
+}
