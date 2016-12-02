@@ -6,13 +6,21 @@
         "php": ">=5.6",
         "ext-curl": "*"
     },
+    "require": {
+        "friendsofphp/php-cs-fixer": "2.0.0"  
+    },
     "require-dev": {
         "phpunit/phpunit": "5.7.*",
         "vlucas/phpdotenv": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "enovinfo\\MailChimpApi\\": "app"
+            "enovinfo\\MailChimpApi\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "enovinfo\\MailChimpApi\\Tests\\": "tests/"
         }
     },
     "homepage": "https://github.com/enovinfo/mailchimpapi",
