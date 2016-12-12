@@ -54,7 +54,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyDataCenter()
     {
-        $MailChimpHttp = new MailChimpHttp('foo');
+        $MailChimpHttp = new MailChimpHttp('fooapikey-');
     }
 
     /*********************************************************************************/
