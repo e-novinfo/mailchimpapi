@@ -10,8 +10,7 @@ before_script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 script: 
-- phpunit
-- php php-cs-fixer --dry-run -v fix .
+- vendor/bin/php-cs-fixer --dry-run -v fix .
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 env:
   global:
