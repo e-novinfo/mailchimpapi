@@ -10,9 +10,8 @@ before_script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 script: 
-- vendor/bin/php-cs-fixer fix $SOURCE_DIR --dry-run --diff --verbose
+- vendor/bin/php-cs-fixer fix app --dry-run --diff --verbose
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 env:
   global:
-    - SOURCE_DIR=app
     secure: qVMPi7PRlGvLbtTLs/l87bMWZXIMeuaScRE+uuvPHWZeU7Fywpwbhf1Wih8M0lorJL2azFpgvIOGQsAFWOxfdvnWnTKRBQUhfKDN2JyhAbbSSLyt2nxJhikZDCwHDWD9+I54jn6MWoXwLvYX5f0pRJYC631zlVDFyr2+zdei5UXpAupDCWxttbsyK96cS5znPbjgI18N4xNTka4ojbXxUSc9pGCRH8WYU3OQHx2flOGCvMeVGJLa4KOwjQl9mzVTZWA8c6rQco/vCFlEKCfVNua94xPE79JrHJeV3baxq9w3fCWy8ZBOTYPAsptnCep6o4Fwryje9HbH5M4OzYxbCJQ2DUfIdJTtt0dQ+7/WeqFu1fS7bjsDnOSDhSIfQ+2ab+5bRXeM4kuucu8+lp8p/4EbLETpOS0oR5xIs3OkNakPKUL1HB5cvdbr2Pi2qDs9W2+y6ASx/EFExQ+OE8CXtlGCgEr47xzqBQz31rGnZu3WwepgqoDKOKYPJ13saUZvFhFptE6ScaBLNFxLxxKjat/kGrJ37gQsb5qIg5szLzDHIpPnrUxOxYAYtg/9q4/YmP9Qp6sX+5ROv5oakmKUtIsa5iTAE3bRA670m+QuZoERDkmW53yO2IZpYYWe2NYPfkttmA0NOY0+sNVA3uxmJd1Ea6v8HyRMktsMhetWxf0=
