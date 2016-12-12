@@ -18,5 +18,8 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
         </whitelist>
+        <exclude>
+            <file>./app/index.php</file>
+        </exclude>
     </filter>
 </phpunit>
