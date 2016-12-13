@@ -89,4 +89,126 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
         $this->assertInstanceOf('\enovinfo\MailChimpApi\Http\MailChimpHttp', $MailChimpHttp);
     }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /******************************************/
+    /********** TEST REQUEST SUCCESS **********/
+    /******************************************/
+    
+    public function testRequestSuccess()
+    {
+        
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        
+        $MailChimpHttp->get('lists');
+        
+        $this->assertTrue($MailChimpHttp->getRequestSuccess());
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /***************************************/
+    /********** TEST REQUEST FAIL **********/
+    /***************************************/
+    
+    public function testRequestFails()
+    {
+        
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        
+        $MailChimpHttp->get('foo');
+
+        $this->assertFalse($MailChimpHttp->getRequestSuccess());
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /***************************************************************/
+    /********** TEST REQUEST FAIL BECAUSE ACTION IS EMPTY **********/
+    /***************************************************************/
+    
+    /**
+     * @expectedException \Exception
+     */
+    public function testRequestFailsActionEmpty()
+    {
+        
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        
+        $MailChimpHttp->get('');
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /****************************************************/
+    /********** TEST REQUEST RESPONSE IS ARRAY **********/
+    /****************************************************/
+    
+    public function testRequestResponseIsArray()
+    {
+        
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        
+        $MailChimpHttp->get('lists');
+        
+        $this->assertTrue(is_array($MailChimpHttp->getResponse()));
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /****************************************************/
+    /********** TEST REQUEST RESPONSE IS FALSE **********/
+    /****************************************************/
+    
+    public function testRequestResponseIsFalse()
+    {
+        
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        
+        $MailChimpHttp->get('foo');
+        
+        $this->assertFalse($MailChimpHttp->getRequestSuccess);
+        
+    }
+    
 }
