@@ -54,7 +54,8 @@ class MailChimpHttp
      * @return Bool
      */
     
-    public function getRequestSuccess() {
+    public function getRequestSuccess()
+    {
         return $this->requestSuccess;
     }
     
@@ -69,7 +70,8 @@ class MailChimpHttp
      * @return Array
      */
     
-    public function getResponse() {
+    public function getResponse()
+    {
         return $this->response;
     }
     
@@ -124,7 +126,7 @@ class MailChimpHttp
      * @return Void
      */
     
-    private function setResponse($response) 
+    private function setResponse($response)
     {
         $this->response = $response;
     }
@@ -141,7 +143,7 @@ class MailChimpHttp
      * @return Void
      */
     
-    private function setFormattedResponse($response) 
+    private function setFormattedResponse($response)
     {
         $this->formattedResponse = $response;
     }
@@ -158,7 +160,7 @@ class MailChimpHttp
      * @return Void
      */
     
-    private function setRequestSuccess($status = false) 
+    private function setRequestSuccess($status = false)
     {
         $this->requestSuccess = $status;
     }
@@ -175,7 +177,7 @@ class MailChimpHttp
      * @return Void
      */
     
-    public function get($action) 
+    public function get($action)
     {
         $this->request('get', $action, $param = array(), $timeout = 10);
     }
@@ -195,9 +197,8 @@ class MailChimpHttp
      * @return JSON | false
      */
     
-    private function request($method, $action, $param = array(), $timeout = 10) 
+    private function request($method, $action, $param = array(), $timeout = 10)
     {
-        
         if (!function_exists('curl_init') || !function_exists('curl_setopt')) {
             throw new \Exception("cURL support is required.");
         }
@@ -214,7 +215,7 @@ class MailChimpHttp
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Accept: application/vnd.api+json',
             'Content-Type: application/vnd.api+json',
-            'Authorization: Basic ' . base64_encode( 'user:'. $this->apiKey )
+            'Authorization: Basic ' . base64_encode('user:'. $this->apiKey)
         ));
         curl_setopt($ch, CURLOPT_USERAGENT, 'e-novinfo/MailChimp-API/3.0 (github.com/e-novinfo/mailchimpapi)');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -245,7 +246,6 @@ class MailChimpHttp
         $this->checkSuccess();
         
         return $handledResponse;
-        
     }
     
     /*********************************************************************************/
@@ -260,21 +260,18 @@ class MailChimpHttp
      * @return JSON | false
      */
     
-    private function handleResponse($response) {
-        
+    private function handleResponse($response)
+    {
         if (!empty($response['body'])) {
-            
             $formattedResponse = $this->formatResponse($response['body']);
             
             $this->setResponse($response);
             $this->setFormattedResponse($formattedResponse);
             
             return $formattedResponse;
-            
         }
         
         return false;
-        
     }
     
     /*********************************************************************************/
@@ -288,12 +285,10 @@ class MailChimpHttp
      * @return JSON
      */
     
-    private function formatResponse($response) 
+    private function formatResponse($response)
     {
-        
         $formattedResponse = json_decode($response, true);
         return $formattedResponse;
-        
     }
     
     /*********************************************************************************/
@@ -307,9 +302,8 @@ class MailChimpHttp
      * @return Bool
      */
 
-    private function checkSuccess() 
+    private function checkSuccess()
     {
-        
         $status = $this->findHTTPStatus();
             
         if ($status >= 200 && $status <= 299 && !empty($this->response['body'])) {
@@ -324,7 +318,6 @@ class MailChimpHttp
    
         $this->setRequestSuccess(false);
         return false;
-        
     }
     
     /*********************************************************************************/
@@ -338,14 +331,12 @@ class MailChimpHttp
      * @return Int
      */
     
-    private function findHTTPStatus() 
+    private function findHTTPStatus()
     {
-        
         if (!empty($this->response['headers']['http_code'])) {
             return (int)$this->response['headers']['http_code'];
         }
         
         return 400;
     }
-
 }

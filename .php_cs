@@ -8,7 +8,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCS(true);
 
 $rules = [
-    '@Symfony' => true
+    '@PSR2' => true
 ];
 
 return PhpCsFixer\Config::create()

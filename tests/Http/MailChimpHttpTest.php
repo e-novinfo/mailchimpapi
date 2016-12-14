@@ -5,10 +5,10 @@
  * @since       12.12.2016
  *
  * @version     1.0.0.0
- *
  * @author      e-novinfo
  * @copyright   e-novinfo 2016
  */
+
 use \enovinfo\MailChimpApi\Http\MailChimpHttp as MailChimpHttp;
 
 class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
@@ -52,6 +52,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Exception
      */
+    
     public function testEmptyDataCenter()
     {
         $mailChimpHttp = new MailChimpHttp('fooapikey-');
@@ -99,7 +100,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     
     public function testRequestSuccess()
     {
-        
         $MC_API_KEY = getenv('MC_API_KEY');
 
         if (!$MC_API_KEY) {
@@ -112,7 +112,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->get('lists');
         
         $this->assertTrue($mailChimpHttp->getRequestSuccess());
-        
     }
     
     /*********************************************************************************/
@@ -124,7 +123,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     
     public function testRequestFails()
     {
-        
         $MC_API_KEY = getenv('MC_API_KEY');
 
         if (!$MC_API_KEY) {
@@ -137,7 +135,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->get('foo');
 
         $this->assertFalse($mailChimpHttp->getRequestSuccess());
-        
     }
     
     /*********************************************************************************/
@@ -150,9 +147,9 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Exception
      */
+    
     public function testRequestFailsActionEmpty()
     {
-        
         $MC_API_KEY = getenv('MC_API_KEY');
 
         if (!$MC_API_KEY) {
@@ -163,7 +160,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->verifySSL = false;
         
         $mailChimpHttp->get('');
-        
     }
     
     /*********************************************************************************/
@@ -175,7 +171,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     
     public function testRequestResponseIsArray()
     {
-        
         $MC_API_KEY = getenv('MC_API_KEY');
 
         if (!$MC_API_KEY) {
@@ -188,7 +183,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->get('lists');
         
         $this->assertTrue(is_array($mailChimpHttp->getResponse()));
-        
     }
     
     /*********************************************************************************/
@@ -200,7 +194,6 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     
     public function testRequestResponseIs404()
     {
-        
         $MC_API_KEY = getenv('MC_API_KEY');
 
         if (!$MC_API_KEY) {
@@ -214,7 +207,5 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $response = $mailChimpHttp->getResponse();
         
         $this->assertEquals(404, $response['headers']['http_code']);
-        
     }
-    
 }
