@@ -25,6 +25,7 @@ class MembersParser implements Parser
     
     private $dataToParse;
     private $parsedData;
+    private $readyToParse = false;
     
     /*********************************************************************************/
     /*********************************************************************************/
@@ -39,8 +40,10 @@ class MembersParser implements Parser
 
     public function __construct($data)
     {
-        
-        echo 'Init MembersParser.php';
+        if ($this->checkReceivedData($data)) {
+            $this->setDataToParse($data);
+            $this->setReadyToParse(true);
+        }
     }
     
     /*********************************************************************************/
@@ -56,7 +59,58 @@ class MembersParser implements Parser
     
     public function getParsedData()
     {
-        return $this->$parsedData;
+        return $this->parsedData;
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
+    /***************************************/
+    /********** SET DATA TO PARSE **********/
+    /***************************************/
+    
+    /*
+     * @param Array $dataToParse Data to parse
+     * @return Void
+     */
+    
+    private function setDataToParse($dataToParse)
+    {
+        return $this->dataToParse = $dataToParse;
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
+    /*************************************/
+    /********** SET PARSED DATA **********/
+    /*************************************/
+    
+    /*
+     * @param Array $parsedData Data parsed
+     * @return Void
+     */
+    
+    private function setParsedData($parsedData)
+    {
+        return $this->parsedData = $parsedData;
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
+    /****************************************/
+    /********** SET READY TO PARSE **********/
+    /****************************************/
+    
+    /*
+     * @param Bool $state State
+     * @return Void
+     */
+    
+    private function setReadyToParse($state = false)
+    {
+        return $this->readyToParse = $state;
     }
     
     /*********************************************************************************/
@@ -68,10 +122,18 @@ class MembersParser implements Parser
     
     /*
      * @param Array $data Data to parse
+     * @return Bool
      */
     
     public function checkReceivedData($data)
     {
+        if (!empty($data) && is_array($data) && !empty($data['members'])) {
+            return true;
+        } else {
+            throw new \Exception('Invalid data.');
+        }
+        
+        return false;
     }
     
     /*********************************************************************************/
@@ -82,10 +144,18 @@ class MembersParser implements Parser
     /***************************************/
     
     /*
-     * @return Array
+     * @return Bool
      */
     
     public function parseData()
     {
+        if ($this->readyToParse) {
+            $this->setParsedData(array());
+            return true;
+        } else {
+            throw new \Exception('Data can\'t be parsed.');
+        }
+        
+        return false;
     }
 }

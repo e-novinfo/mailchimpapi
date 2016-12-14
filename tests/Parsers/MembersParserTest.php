@@ -16,10 +16,12 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
     /***************************/
     /********** SETUP **********/
     /***************************/
+    
+    protected $data;
 
     public function setUp()
     {
-        
+        $this->data = array( 'members' => array( array( 'id' => 'foo' ) ) );
     }
 
     /*********************************************************************************/
@@ -31,12 +33,99 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParserInstantiation()
     {
-        
-        $data = array( 'members' => array( array( 'id' => 'foo' ) ) );
-    
-        $membersParser = new MembersParser($data);
+        $membersParser = new MembersParser($this->data);
         $this->assertInstanceOf('\enovinfo\MailChimpApi\Parsers\MembersParser', $membersParser);
     }
     
-   
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /***************************************/
+    /********** TEST INVALID DATA **********/
+    /***************************************/
+
+    /**
+     * @expectedException \Exception
+     */
+    
+    public function testParserInvalidData()
+    {
+        $membersParser = new MembersParser('foo');
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /*************************************/
+    /********** TEST EMPTY DATA **********/
+    /*************************************/
+
+    /**
+     * @expectedException \Exception
+     */
+    
+    public function testParserEmptyData()
+    {
+        $membersParser = new MembersParser('');
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /*******************************************/
+    /********** TEST DATA WITHOUT KEY **********/
+    /*******************************************/
+
+    /**
+     * @expectedException \Exception
+     */
+    
+    public function testParserDataWithoutKey()
+    {
+        $membersParser = new MembersParser(array());
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /*************************************/
+    /********** TEST PARSE DATA **********/
+    /*************************************/
+    
+    public function testParseData()
+    {
+        $membersParser = new MembersParser($this->data);
+        $this->assertTrue($membersParser->parseData());
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /**************************************/
+    /********** TEST PARSED DATA **********/
+    /**************************************/
+    
+    public function testParsedData()
+    {
+        $membersParser = new MembersParser($this->data);
+        $membersParser->parseData();
+        $this->assertTrue(is_array($membersParser->getParsedData()));
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /*********************************************/
+    /********** TEST NOT READY TO PARSE **********/
+    /*********************************************/
+    
+    /**
+     * @expectedException \Exception
+     */
+    
+    public function testNotReadyToParse()
+    {
+        $membersParser = new MembersParser(array());
+        $this->assertFalse($membersParser->parseData());
+    }
 }
