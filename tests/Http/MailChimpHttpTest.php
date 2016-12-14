@@ -39,7 +39,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidAPIKey()
     {
-        $MailChimpHttp = new MailChimpHttp('foo');
+        $mailChimpHttp = new MailChimpHttp('foo');
     }
 
     /*********************************************************************************/
@@ -54,7 +54,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyDataCenter()
     {
-        $MailChimpHttp = new MailChimpHttp('fooapikey-');
+        $mailChimpHttp = new MailChimpHttp('fooapikey-');
     }
 
     /*********************************************************************************/
@@ -86,8 +86,8 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
 
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
-        $this->assertInstanceOf('\enovinfo\MailChimpApi\Http\MailChimpHttp', $MailChimpHttp);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $this->assertInstanceOf('\enovinfo\MailChimpApi\Http\MailChimpHttp', $mailChimpHttp);
     }
     
     /*********************************************************************************/
@@ -106,11 +106,12 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
         
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
         
-        $MailChimpHttp->get('lists');
+        $mailChimpHttp->get('lists');
         
-        $this->assertTrue($MailChimpHttp->getRequestSuccess());
+        $this->assertTrue($mailChimpHttp->getRequestSuccess());
         
     }
     
@@ -130,11 +131,12 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
         
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
         
-        $MailChimpHttp->get('foo');
+        $mailChimpHttp->get('foo');
 
-        $this->assertFalse($MailChimpHttp->getRequestSuccess());
+        $this->assertFalse($mailChimpHttp->getRequestSuccess());
         
     }
     
@@ -157,9 +159,10 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
         
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
         
-        $MailChimpHttp->get('');
+        $mailChimpHttp->get('');
         
     }
     
@@ -179,11 +182,12 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
         
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
         
-        $MailChimpHttp->get('lists');
+        $mailChimpHttp->get('lists');
         
-        $this->assertTrue(is_array($MailChimpHttp->getResponse()));
+        $this->assertTrue(is_array($mailChimpHttp->getResponse()));
         
     }
     
@@ -203,11 +207,12 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No API key in .env file.');
         }
         
-        $MailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
         
-        $MailChimpHttp->get('foo');
+        $mailChimpHttp->get('foo');
         
-        $this->assertFalse($MailChimpHttp->getRequestSuccess);
+        $this->assertFalse($mailChimpHttp->getRequestSuccess());
         
     }
     

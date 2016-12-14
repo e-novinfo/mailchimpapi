@@ -261,7 +261,7 @@ class MailChimpHttp
             $this->setRequestSuccess(false);
             return false;
         }
-        
+   
         $this->setRequestSuccess(false);
         return false;
         
@@ -277,8 +277,8 @@ class MailChimpHttp
     private function findHTTPStatus() 
     {
         
-        if (!empty($this->reponse['body']['status'])) {
-            return (int)$this->reponse['body']['status'];
+        if (!empty($this->response['headers']['http_code'])) {
+            return (int)$this->response['headers']['http_code'];
         }
         
         return 400;

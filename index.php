@@ -20,3 +20,4 @@ $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
 $mailChimpHttp->verifySSL = false;
 $mailChimpHttp->get('lists');
 print_r($mailChimpHttp->getResponse());
+//echo $mailChimpHttp->getRequestSuccess();
