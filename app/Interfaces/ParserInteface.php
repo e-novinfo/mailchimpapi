@@ -14,9 +14,7 @@ namespace enovinfo\MailChimpApi\Interfaces;
 
 interface ParserInterface
 {
-    
     public function getParsedData();
     public function checkReceivedData($data);
     public function parseData();
-    
 }

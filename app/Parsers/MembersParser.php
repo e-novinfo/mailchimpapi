@@ -12,9 +12,7 @@
 
 namespace enovinfo\MailChimpApi\Parsers;
 
-use \enovinfo\MailChimpApi\Interfaces\ParserInterface as ParserInterface;
-
-class MembersParser implements ParserInterface
+class MembersParser implements \enovinfo\MailChimpApi\Interfaces\ParserInterface
 {
     
     /********************************/
@@ -24,7 +22,7 @@ class MembersParser implements ParserInterface
     public $data;
     
     private $dataToParse;
-    private $parsedData;    
+    private $parsedData;
     
     /*********************************************************************************/
     /*********************************************************************************/
@@ -39,7 +37,6 @@ class MembersParser implements ParserInterface
 
     public function __construct($data)
     {
-        
     }
     
     /*********************************************************************************/
@@ -55,9 +52,7 @@ class MembersParser implements ParserInterface
     
     public function getParsedData()
     {
-        
         return $this->$parsedData;
-        
     }
     
     /*********************************************************************************/
@@ -73,7 +68,6 @@ class MembersParser implements ParserInterface
     
     public function checkReceivedData($data)
     {
-        
     }
     
     /*********************************************************************************/
@@ -87,9 +81,7 @@ class MembersParser implements ParserInterface
      * @return Array
      */
     
-    public function parseData() 
+    public function parseData()
     {
-        
     }
-    
 }
