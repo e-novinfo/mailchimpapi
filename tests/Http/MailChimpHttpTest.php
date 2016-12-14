@@ -1,6 +1,6 @@
 <?php
 /**
- * MailChimpApi - MailChimpHttpTest.
+ * MailChimpApi - MailChimpHttpTest
  *
  * @since       12.12.2016
  *
