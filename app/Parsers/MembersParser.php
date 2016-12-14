@@ -12,7 +12,9 @@
 
 namespace enovinfo\MailChimpApi\Parsers;
 
-class MembersParser implements \enovinfo\MailChimpApi\Interfaces\ParserInterface
+use enovinfo\MailChimpApi\Interfaces\Parser as Parser;
+
+class MembersParser implements Parser
 {
     
     /********************************/
@@ -37,6 +39,8 @@ class MembersParser implements \enovinfo\MailChimpApi\Interfaces\ParserInterface
 
     public function __construct($data)
     {
+        
+        echo 'Init MembersParser.php';
     }
     
     /*********************************************************************************/
