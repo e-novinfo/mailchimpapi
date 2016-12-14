@@ -185,7 +185,9 @@ class MailChimpHttp
                 curl_setopt($ch, CURLOPT_URL, $url . '?' . $query);
                 break;
             default:
-                return false;
+                $query = http_build_query($param, '', '&');
+                curl_setopt($ch, CURLOPT_URL, $url . '?' . $query);
+                break;
         }
         
         $response['body'] = curl_exec($ch);

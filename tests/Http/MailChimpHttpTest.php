@@ -194,11 +194,11 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /*********************************************************************************/
     /*********************************************************************************/
     
-    /****************************************************/
-    /********** TEST REQUEST RESPONSE IS FALSE **********/
-    /****************************************************/
+    /*********************************************/
+    /********** TEST REQUEST STATUS 404 **********/
+    /*********************************************/
     
-    public function testRequestResponseIsFalse()
+    public function testRequestResponseIs404()
     {
         
         $MC_API_KEY = getenv('MC_API_KEY');
@@ -211,8 +211,9 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->verifySSL = false;
         
         $mailChimpHttp->get('foo');
+        $response = $mailChimpHttp->getResponse();
         
-        $this->assertFalse($mailChimpHttp->getRequestSuccess());
+        $this->assertEquals(404, $response['headers']['http_code']);
         
     }
     
