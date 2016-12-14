@@ -32,6 +32,10 @@ class MailChimpHttp
     /*******************************/
     /********** CONSTRUCT **********/
     /*******************************/
+    
+    /*
+     * @param String $apiKey The API key
+     */
 
     public function __construct($apiKey)
     {
@@ -46,6 +50,10 @@ class MailChimpHttp
     /********** GET REQUEST STATUS **********/
     /****************************************/
     
+    /*
+     * @return Bool
+     */
+    
     public function getRequestSuccess() {
         return $this->requestSuccess;
     }
@@ -57,6 +65,10 @@ class MailChimpHttp
     /********** GET RESPONSE **********/
     /**********************************/
     
+    /*
+     * @return Array
+     */
+    
     public function getResponse() {
         return $this->response;
     }
@@ -67,6 +79,11 @@ class MailChimpHttp
     /*********************************/
     /********** SET API KEY **********/
     /*********************************/
+    
+    /*
+     * @param String $apiKey The API key
+     * @return Void
+     */
 
     private function setApiKey($apiKey)
     {
@@ -102,6 +119,11 @@ class MailChimpHttp
     /********** SET RESPONSE **********/
     /**********************************/
     
+    /*
+     * @param Array $response The response
+     * @return Void
+     */
+    
     private function setResponse($response) 
     {
         $this->response = $response;
@@ -113,6 +135,11 @@ class MailChimpHttp
     /********************************************/
     /********** SET FORMATTED RESPONSE **********/
     /********************************************/
+    
+    /*
+     * @param JSON $response The formatted response
+     * @return Void
+     */
     
     private function setFormattedResponse($response) 
     {
@@ -126,6 +153,11 @@ class MailChimpHttp
     /********** SET REQUEST SUCCESS **********/
     /*****************************************/
     
+    /*
+     * @param Bool $status The request status
+     * @return Void
+     */
+    
     private function setRequestSuccess($status = false) 
     {
         $this->requestSuccess = $status;
@@ -138,6 +170,11 @@ class MailChimpHttp
     /********** GET **********/
     /*************************/
     
+    /*
+     * @param String $action The action to do
+     * @return Void
+     */
+    
     public function get($action) 
     {
         $this->request('get', $action, $param = array(), $timeout = 10);
@@ -149,6 +186,14 @@ class MailChimpHttp
     /*****************************/
     /********** REQUEST **********/
     /*****************************/
+    
+    /*
+     * @param String $method The HTTP Method to use
+     * @param String $action The action to do
+     * @param Array $param Additional parameters to use
+     * @param Int $timeout Timeout
+     * @return JSON | false
+     */
     
     private function request($method, $action, $param = array(), $timeout = 10) 
     {
@@ -210,6 +255,11 @@ class MailChimpHttp
     /********** HANDLE RESPONSE **********/
     /*************************************/
     
+    /*
+     * @param array Response got with cURL
+     * @return JSON | false
+     */
+    
     private function handleResponse($response) {
         
         if (!empty($response['body'])) {
@@ -234,6 +284,10 @@ class MailChimpHttp
     /********** FORMAT RESPONSE **********/
     /*************************************/
     
+    /*
+     * @return JSON
+     */
+    
     private function formatResponse($response) 
     {
         
@@ -248,6 +302,10 @@ class MailChimpHttp
     /**********************************************/
     /********** CHECK IF REQUEST SUCCEED **********/
     /**********************************************/
+    
+    /*
+     * @return Bool
+     */
 
     private function checkSuccess() 
     {
@@ -275,6 +333,10 @@ class MailChimpHttp
     /**************************************/
     /********** FIND HTTP STATUS **********/
     /**************************************/
+    
+    /*
+     * @return Int
+     */
     
     private function findHTTPStatus() 
     {
