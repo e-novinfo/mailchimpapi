@@ -1,8 +1,8 @@
 <?php
 /**
- * MailChimpApi - MembersParser
+ * MailChimpApi - MergeFieldsParser
  *
- * @since       14.12.2016
+ * @since       16.12.2016
  *
  * @version     1.0.0.0
  *
@@ -14,7 +14,7 @@ namespace enovinfo\MailChimpApi\Parsers;
 
 use enovinfo\MailChimpApi\Interfaces\Parser as Parser;
 
-class MembersParser implements Parser
+class MergeFieldsParser implements Parser
 {
     
     /********************************/
@@ -41,7 +41,7 @@ class MembersParser implements Parser
     public function __construct($data)
     {
         if ($this->checkReceivedData($data)) {
-            $this->setDataToParse($data['members']);
+            $this->setDataToParse($data['merge_fields']);
             $this->setReadyToParse(true);
         }
     }
@@ -127,37 +127,13 @@ class MembersParser implements Parser
     
     public function checkReceivedData($data)
     {
-        if (!empty($data) && is_array($data) && !empty($data['members'])) {
+        if (!empty($data) && is_array($data) && !empty($data['merge_fields'])) {
             return true;
         } else {
             throw new \Exception('Invalid data.');
         }
         
         return false;
-    }
-    
-    /*********************************************************************************/
-    /*********************************************************************************/
-        
-    /****************************************/
-    /********** PARSE MERGE FIELDS **********/
-    /****************************************/
-    
-    /*
-     * @param Array $fields Fields to parse
-     */
-    
-    private function parseMergeField($fields) 
-    {
-        
-        $mergedFields = array();
-        
-        foreach ($fields as $f => $field) {
-            $mergedFields[$f] = $field;
-        }
-        
-        return $mergedFields;
-        
     }
     
     /*********************************************************************************/
@@ -178,36 +154,20 @@ class MembersParser implements Parser
             
         $i = 0;
 
-        foreach ($this->dataToParse as $member) {
+        foreach ($this->dataToParse as $field) {
 
             $parsedData[$i] = array();
 
-            if (!empty($member['id'])) {
-                $parsedData[$i]['id'] = (string) $member['id'];
-            }
-
-            if (!empty($member['email_address'])) {
-                $parsedData[$i]['email'] = (string) $member['email_address'];
-            }
-
-            if (!empty($member['status'])) {
-                $parsedData[$i]['status'] = (string) $member['status'];
-            }
-
-            if (!empty($member['language'])) {
-                $parsedData[$i]['language'] = (string) $member['language'];
+            if (!empty($field['merge_id'])) {
+                $parsedData[$i]['merge_id'] = (int) $field['merge_id'];
             }
             
-            if (!empty($member['location']['country_code'])) {
-                $parsedData[$i]['country'] = (string) $member['location']['country_code'];
+            if (!empty($field['tag'])) {
+                $parsedData[$i]['tag'] = (string) $field['tag'];
             }
-            
-            if (!empty($member['merge_fields'])) {
-                $parsedFields = $this->parseMergeField($member['merge_fields']);
-                
-                foreach($parsedFields as $f => $field) {
-                    $parsedData[$i][$f] = $field;
-                }
+
+            if (!empty($field['name'])) {
+                $parsedData[$i]['name'] = (string) $field['name'];
             }
 
             $i++;
