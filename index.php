@@ -50,3 +50,4 @@ print_r($parsedMergeFields);
 echo '</pre>';
 
 $csvGenerator = new CSVGenerator($parsedMembers, $parsedMergeFields);
+$csvGenerator->process(true);

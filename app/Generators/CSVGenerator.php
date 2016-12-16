@@ -27,7 +27,10 @@ class CSVGenerator
     private $replaceTextSeparator = "'";
     private $lineDelimiter = "\n";
     private $dataToParse;
+    private $headersName;
     private $additionalFields;
+    private $destinationFolder = "exports/";
+    private $fileName = "export.csv";
     
     /*********************************************************************************/
     /*********************************************************************************/
@@ -122,6 +125,43 @@ class CSVGenerator
     /*********************************************************************************/
     /*********************************************************************************/
         
+    /*********************************/
+    /********** SET HEADERS **********/
+    /*********************************/
+    
+    /*
+     * @param Array $headers Headers
+     * @return Void
+     */
+    
+    private function setHeadersName($headers)
+    {
+        $this->headersName = $headers;
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
+    /*********************************/
+    /********** SET HEADERS **********/
+    /*********************************/
+    
+    /*
+     * @return Void
+     */
+    
+    private function setFileName()
+    {
+        $day = date('d');
+        $month = date('m');
+        $year = date('Y');
+        
+        $this->fileName = 'export_' . $day . $month . $year . '.csv';
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
     /********************************/
     /********** CHECK DATA **********/
     /********************************/
@@ -171,11 +211,100 @@ class CSVGenerator
     /*****************************/
     
     /*
+     * @param Bool $clean Clean the directory
      * @return Bool
      */
     
-    public function process()
+    public function process($clean = true)
     {
+        
+        if (($clean && $this->cleanDirectory()) || !$clean) {
+        
+            $this->setFileName();
+
+            $headers = $this->prepareHeaders();
+            $this->setHeadersName($headers);
+
+            return $this->write();
+            
+        }
+        
+        return false;
+
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /*************************************/
+    /********** PREPARE HEADERS **********/
+    /*************************************/
+    
+    /*
+     * @return Array
+     */
+    
+    private function prepareHeaders()
+    {
+        
+        $headers = array();
+        
+        foreach($this->dataToParse as $key => $value) {
+            
+            if (!in_array($key, $headers)) {
+                array_push($headers, $key);
+            }
+
+        }
+        
+        if ($this->additionalFields) {
+            
+            foreach($this->additionalFields as $field) {
+            
+                if (!in_array($field['tag'], $headers)) {
+                    array_push($headers, $field['tag']);
+                }
+
+            }
+            
+        }
+        
+        return $headers;
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /***************************/
+    /********** WRITE **********/
+    /***************************/
+    
+    /*
+     * @return Bool
+     */
+    
+    private function write()
+    {
+        
+        ob_start();
+        
+        $file = fopen($this->destinationFolder . $this->fileName, 'w+');
+        
+        $str = $this->convertData();
+        
+        $write = fwrite($file, $str);
+        
+        fclose($file);
+        
+        ob_get_clean();
+        flush();
+        
+        if ($write) {
+            return true;
+        }
+        
+        return false;
         
     }
     
@@ -186,8 +315,27 @@ class CSVGenerator
     /********** CONVERT DATA **********/
     /**********************************/
     
+    /*
+     * @return String
+     */
+    
     private function convertData() 
     {
+        
+        $lines = array();
+        
+        $lines[0] = $this->convertLine($this->headersName);
+        
+        $i = 1;
+        
+        foreach ($this->dataToParse as $line) {
+            $lines[$i] = $this->convertLine($line);
+            $i++;
+        }
+        
+        $imploded = implode($this->lineDelimiter, $lines);
+        
+        return $imploded;
         
     }
     
@@ -198,23 +346,54 @@ class CSVGenerator
     /********** CONVERT LINE **********/
     /**********************************/
     
-    private function convertLine() 
+    /*
+     * @param Array $line Line to convert
+     * @return String
+     */
+    
+    private function convertLine($line) 
     {
+        
+        $csvLine = array();
+        
+        foreach ($line as $item) {
+            $csvLine[] = $this->textSeparator . str_replace($this->textSeparator, $this->replaceTextSeparator, $item) . $this->textSeparator;
+        }
+        
+        $imploded = implode($this->delimter, $csvLine);
+        
+        return $imploded;
         
     }
     
     /*********************************************************************************/
     /*********************************************************************************/
     
-    /***********************************/
-    /********** GENERATE FILE **********/
-    /***********************************/
+    /*************************************/
+    /********** CLEAN DIRECTORY **********/
+    /*************************************/
     
     /*
      * @return Bool
      */
     
-    private function generateFile() {
+    private function cleanDirectory() {
+        
+        $dir = $this->destinationFolder;
+        $dirHandle = opendir($dir);
+        
+        while ($file = readdir($dirHandle)) {
+            if (!is_dir($file) && $file !== '.gitkeep') {
+                $unlink = unlink($dir . $file);
+                if (!$unlink) {
+                    return false;
+                }
+            }
+        }
+        
+        closedir($dirHandle);
+        
+        return $dirHandle;
         
     }
       

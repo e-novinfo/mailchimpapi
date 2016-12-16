@@ -121,5 +121,18 @@ class CSVGeneratorTest extends \PHPUnit_Framework_TestCase
         $csvGenerator = new CSVGenerator($this->data, 'foo');
         $this->assertFalse(is_array($csvGenerator->getAdditionalFields()));
     }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /******************************************/
+    /********** TEST PROCESS SUCCEED **********/
+    /******************************************/
+    
+    public function testGeneratorProcessSucceed()
+    {
+        $csvGenerator = new CSVGenerator($this->data, $this->mergeFields);
+        $this->assertTrue($csvGenerator->process(false));
+    }
   
 }
