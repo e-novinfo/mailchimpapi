@@ -26,7 +26,9 @@ $mailChimpMembers->get('lists/'.$listID.'/members');
 $members = $mailChimpMembers->getFormattedResponse();
 
 $membersParser = new MembersParser($members);
+$membersParser->parseData();
+$parsedMembers = $membersParser->getParsedData();
 
 echo '<pre>';
-print_r($members);
+print_r($parsedMembers);
 echo '</pre>';

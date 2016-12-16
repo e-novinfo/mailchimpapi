@@ -21,7 +21,7 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->data = array( 'members' => array( array( 'id' => 'foo' ) ) );
+        $this->data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => 'user@domaine.com', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
     }
 
     /*********************************************************************************/
@@ -128,4 +128,55 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
         $membersParser = new MembersParser(array());
         $this->assertFalse($membersParser->parseData());
     }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /********************************************/
+    /********** PARSING PROCESS FIELDS **********/
+    /********************************************/
+    
+    public function testParsingProcessFields()
+    {
+        
+        for ($i = 0; $i <= 5; $i++) {
+            
+            $data = array();
+            
+            switch ($i) {
+                    
+                case 0:
+                    $data = $this->data;
+                    break;
+                    
+                case 1:
+                    $data = array( 'members' => array( array( 'id' => '', 'email_adress' => 'user@domaine.com', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
+                    break;
+                    
+                case 2: 
+                    $data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => '', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
+                    break;
+                    
+                case 3:
+                    $data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => 'user@domaine.com', 'status' => '', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
+                    break;
+                    
+                case 4:
+                    $data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => 'user@domaine.com', 'status' => '', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
+                    break;
+                    
+                case 5:
+                    $data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => 'user@domaine.com', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ) ) ) );
+                    break;
+                    
+            }
+            
+            $membersParser = new MembersParser($data);
+            $membersParser->parseData();
+            $this->assertTrue(is_array($membersParser->getParsedData()));
+            
+        }
+        
+    }
+  
 }
