@@ -4,3 +4,5 @@
 .php_cs.cache
 composer.lock
 npm-debug.log
+exports/*
+!exports/.gitkeep
