@@ -26,20 +26,6 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
             $dotenv->load();
         }
     }
-
-    /*********************************************************************************/
-    /*********************************************************************************/
-
-    /****************************************/
-    /********** TEST INSTANTIATION **********/
-    /****************************************/
-
-    public function testControllerInstantiation()
-    {
-        $envFilePath = realpath(dirname(__FILE__)).'/../../';
-        $mainController = new MainController($envFilePath);
-        $this->assertInstanceOf('\enovinfo\MailChimpApi\Controllers\MainController', $mainController);
-    }
     
     /*********************************************************************************/
     /*********************************************************************************/
