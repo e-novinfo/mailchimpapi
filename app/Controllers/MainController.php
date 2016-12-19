@@ -24,6 +24,8 @@ class MainController
     /********** PROPERTIES **********/
     /********************************/
     
+    public $envFileDir;
+    
     private $mcApiKey;
     private $lists;
     private $listID;
@@ -39,7 +41,7 @@ class MainController
     /********** CONSTRUCT **********/
     /*******************************/
 
-    public function __construct()
+    public function __construct($pathToEnvFileDir = null)
     {
         $timeStart = microtime(true);
         
@@ -49,6 +51,7 @@ class MainController
         $fileName = 'export_' . $day . $month . $year . '.csv';
         
         try {
+            $this->setEnvFileDir($pathToEnvFileDir);
             $this->setMcApiKey();
             $this->setLists();
             $this->setListID();
@@ -72,6 +75,24 @@ class MainController
     
     /*********************************************************************************/
     /*********************************************************************************/
+    
+    /*************************************/
+    /********** SET ENV FIL DIR **********/
+    /*************************************/
+    
+    public function setEnvFileDir($pathToEnvFileDir)
+    {
+        
+        if (!empty($pathToEnvFileDir)) {
+            $envFileDir = $pathToEnvFileDir;
+        } else {
+            $envFileDir = __DIR__.'/../../';
+        }
+        
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
         
     /************************************/
     /********** SET MC API KEY **********/
@@ -80,9 +101,7 @@ class MainController
     private function setMcApiKey()
     {
         $envFilePath = __DIR__.'/../../';
-        
-        echo $envFilePath;
-        
+
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new \Dotenv\Dotenv($envFilePath);
             $dotenv->load();
