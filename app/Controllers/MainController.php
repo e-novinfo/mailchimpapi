@@ -82,13 +82,13 @@ class MainController
     
     public function setEnvFileDir($pathToEnvFileDir)
     {
-        
         if (!empty($pathToEnvFileDir)) {
             $envFileDir = $pathToEnvFileDir;
         } else {
             $envFileDir = __DIR__.'/../../';
         }
         
+        $this->envFileDir = $envFileDir;
     }
     
     /*********************************************************************************/
@@ -100,7 +100,7 @@ class MainController
     
     private function setMcApiKey()
     {
-        $envFilePath = __DIR__.'/../../';
+        $envFilePath = $this->envFileDir;
 
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new \Dotenv\Dotenv($envFilePath);

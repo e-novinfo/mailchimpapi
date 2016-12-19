@@ -36,7 +36,6 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testControllerInstantiation()
     {
-        
         $envFilePath = __DIR__.'/../../';
         $mainController = new MainController($envFilePath);
         $this->assertInstanceOf('\enovinfo\MailChimpApi\Controllers\MainController', $mainController);
