@@ -83,4 +83,5 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
 
         $mainController = new MainController($envFilePath, null);
     }
+
 }

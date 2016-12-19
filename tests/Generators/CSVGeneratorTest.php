@@ -160,4 +160,19 @@ class CSVGeneratorTest extends \PHPUnit_Framework_TestCase
         $csvGenerator = new CSVGenerator($this->data, $this->mergeFields);
         $this->assertFalse($csvGenerator->process('foo'));
     }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /******************************************************/
+    /********** TEST PROCESS WRTIE RETURNS FALSE **********/
+    /******************************************************/
+    
+    public function testGeneratorProcessWriteReturnsFalse()
+    {
+        
+        $data = array( array( 'id' => 'foo', 'email_adress' => 'user@domaine.com', 'status' => 'subscribed', 'country_code' => "CH'/&&#°@)/", "'/&&#°@)/" => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) );
+        $csvGenerator = new CSVGenerator($data, $this->mergeFields);
+        $this->assertFalse($csvGenerator->process('false'));
+    }
 }
