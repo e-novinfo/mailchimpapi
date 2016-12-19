@@ -1,6 +1,6 @@
 <?php
 /**
- * MailChimpApi - MailChimpHttpTest.
+ * MailChimpApi - MailChimpHttpTest
  *
  * @since       12.12.2016
  *
@@ -65,7 +65,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /********** TEST ENVIRONNEMENT **********/
     /****************************************/
 
-    public function testTestEnvironment()
+    public function testEnvironment()
     {
         $MC_API_KEY = getenv('MC_API_KEY');
         $message = 'No environment variables in file .env. Create the file .env like .env.example.';
@@ -183,6 +183,29 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
         $mailChimpHttp->get('lists');
         
         $this->assertTrue(is_array($mailChimpHttp->getResponse()));
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /**************************************************************/
+    /********** TEST REQUEST FORMATTED RESPONSE IS ARRAY **********/
+    /**************************************************************/
+    
+    public function testRequestFormattedResponseIsArray()
+    {
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
+        
+        $mailChimpHttp->get('lists');
+        
+        $this->assertTrue(is_array($mailChimpHttp->getFormattedResponse()));
     }
     
     /*********************************************************************************/

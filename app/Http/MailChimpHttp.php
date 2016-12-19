@@ -1,6 +1,6 @@
 <?php
 /**
- * MailChimpApi - MailChimpHttp.
+ * MailChimpApi - MailChimpHttp
  *
  * @since       12.12.2016
  *
@@ -67,12 +67,28 @@ class MailChimpHttp
     /**********************************/
     
     /*
-     * @return Array
+     * @return JSON
      */
     
     public function getResponse()
     {
         return $this->response;
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
+    /********************************************/
+    /********** GET FORMATTED RESPONSE **********/
+    /********************************************/
+    
+    /*
+     * @return Array
+     */
+    
+    public function getFormattedResponse()
+    {
+        return $this->formattedResponse;
     }
     
     /*********************************************************************************/
