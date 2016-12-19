@@ -65,7 +65,7 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /********** TEST ENVIRONNEMENT **********/
     /****************************************/
 
-    public function testTestEnvironment()
+    public function testEnvironment()
     {
         $MC_API_KEY = getenv('MC_API_KEY');
         $message = 'No environment variables in file .env. Create the file .env like .env.example.';

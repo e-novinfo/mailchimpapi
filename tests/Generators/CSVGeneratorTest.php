@@ -1,6 +1,6 @@
 <?php
 /**
- * MailChimpApi -CSVGeneratorTest
+ * MailChimpApi - CSVGeneratorTest
  *
  * @since       16.12.2016
  *

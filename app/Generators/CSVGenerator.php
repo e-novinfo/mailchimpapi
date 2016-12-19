@@ -249,10 +249,12 @@ class CSVGenerator
         
         $headers = array();
         
-        foreach($this->dataToParse as $key => $value) {
+        foreach ($this->dataToParse as $data) {
             
-            if (!in_array($key, $headers)) {
-                array_push($headers, $key);
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $headers)) {
+                    array_push($headers, $key);
+                }
             }
 
         }
