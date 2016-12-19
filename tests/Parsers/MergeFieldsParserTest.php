@@ -138,9 +138,7 @@ class MergeFieldsParserTest extends \PHPUnit_Framework_TestCase
     
     public function testParsingProcessFields()
     {
-        
         for ($i = 0; $i <= 3; $i++) {
-            
             $data = array();
             
             switch ($i) {
@@ -153,7 +151,7 @@ class MergeFieldsParserTest extends \PHPUnit_Framework_TestCase
                     $data = array( 'merge_fields' => array( array( 'merge_id' => 0, 'tag' => 'LNAME', 'name' => 'foo' ) ) );
                     break;
                     
-                case 2: 
+                case 2:
                     $data = array( 'merge_fields' => array( array( 'merge_id' => 2, 'tag' => '', 'name' => 'foo' ) ) );
                     
                 case 3:
@@ -165,9 +163,6 @@ class MergeFieldsParserTest extends \PHPUnit_Framework_TestCase
             $mergeFieldsParser = new MergeFieldsParser($data);
             $mergeFieldsParser->parseData();
             $this->assertTrue(is_array($mergeFieldsParser->getParsedData()));
-            
         }
-        
     }
-  
 }

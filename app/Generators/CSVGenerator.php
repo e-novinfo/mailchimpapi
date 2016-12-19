@@ -45,7 +45,6 @@ class CSVGenerator
 
     public function __construct($data, $mergeFields = null)
     {
-    
         if ($this->checkData($data)) {
             $this->setDataToParse($data);
         }
@@ -53,7 +52,6 @@ class CSVGenerator
         if ($this->checkMergeFields($mergeFields)) {
             $this->setAdditionalFields($mergeFields);
         }
-        
     }
     
     /*********************************************************************************/
@@ -217,20 +215,16 @@ class CSVGenerator
     
     public function process($clean = true)
     {
-        
         if (($clean && $this->cleanDirectory()) || !$clean) {
-        
             $this->setFileName();
 
             $headers = $this->prepareHeaders();
             $this->setHeadersName($headers);
 
             return $this->write();
-            
         }
         
         return false;
-
     }
     
     /*********************************************************************************/
@@ -246,33 +240,25 @@ class CSVGenerator
     
     private function prepareHeaders()
     {
-        
         $headers = array();
         
         foreach ($this->dataToParse as $data) {
-            
             foreach ($data as $key => $value) {
                 if (!in_array($key, $headers)) {
                     array_push($headers, $key);
                 }
             }
-
         }
         
         if ($this->additionalFields) {
-            
-            foreach($this->additionalFields as $field) {
-            
+            foreach ($this->additionalFields as $field) {
                 if (!in_array($field['tag'], $headers)) {
                     array_push($headers, $field['tag']);
                 }
-
             }
-            
         }
         
         return $headers;
-        
     }
     
     /*********************************************************************************/
@@ -288,7 +274,6 @@ class CSVGenerator
     
     private function write()
     {
-        
         ob_start();
         
         $file = fopen($this->destinationFolder . $this->fileName, 'w+');
@@ -307,7 +292,6 @@ class CSVGenerator
         }
         
         return false;
-        
     }
     
     /*********************************************************************************/
@@ -321,9 +305,8 @@ class CSVGenerator
      * @return String
      */
     
-    private function convertData() 
+    private function convertData()
     {
-        
         $lines = array();
         
         $lines[0] = $this->convertLine($this->headersName);
@@ -338,7 +321,6 @@ class CSVGenerator
         $imploded = implode($this->lineDelimiter, $lines);
         
         return $imploded;
-        
     }
     
     /*********************************************************************************/
@@ -353,9 +335,8 @@ class CSVGenerator
      * @return String
      */
     
-    private function convertLine($line) 
+    private function convertLine($line)
     {
-        
         $csvLine = array();
         
         foreach ($line as $item) {
@@ -365,7 +346,6 @@ class CSVGenerator
         $imploded = implode($this->delimter, $csvLine);
         
         return $imploded;
-        
     }
     
     /*********************************************************************************/
@@ -379,8 +359,8 @@ class CSVGenerator
      * @return Bool
      */
     
-    private function cleanDirectory() {
-        
+    private function cleanDirectory()
+    {
         $dir = $this->destinationFolder;
         $dirHandle = opendir($dir);
         
@@ -396,7 +376,5 @@ class CSVGenerator
         closedir($dirHandle);
         
         return $dirHandle;
-        
     }
-      
 }

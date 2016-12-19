@@ -147,9 +147,8 @@ class MembersParser implements Parser
      * @param Array $fields Fields to parse
      */
     
-    private function parseMergeField($fields) 
+    private function parseMergeField($fields)
     {
-        
         $mergedFields = array();
         
         foreach ($fields as $f => $field) {
@@ -157,7 +156,6 @@ class MembersParser implements Parser
         }
         
         return $mergedFields;
-        
     }
     
     /*********************************************************************************/
@@ -171,15 +169,13 @@ class MembersParser implements Parser
      * @return Array
      */
     
-    private function parseProcess() 
+    private function parseProcess()
     {
-        
         $parsedData = array();
             
         $i = 0;
 
         foreach ($this->dataToParse as $member) {
-
             $parsedData[$i] = array();
 
             if (!empty($member['id'])) {
@@ -205,17 +201,15 @@ class MembersParser implements Parser
             if (!empty($member['merge_fields'])) {
                 $parsedFields = $this->parseMergeField($member['merge_fields']);
                 
-                foreach($parsedFields as $f => $field) {
+                foreach ($parsedFields as $f => $field) {
                     $parsedData[$i][$f] = $field;
                 }
             }
 
             $i++;
-
         }
         
         return $parsedData;
-        
     }
     
     /*********************************************************************************/
@@ -232,11 +226,9 @@ class MembersParser implements Parser
     public function parseData()
     {
         if ($this->readyToParse) {
-            
             $parsedData = $this->parseProcess();
             $this->setParsedData($parsedData);
             return true;
-            
         } else {
             throw new \Exception('Data can\'t be parsed.');
         }

@@ -41,8 +41,7 @@ class MainController
 
     public function __construct()
     {
-        
-        $timeStart = microtime(true); 
+        $timeStart = microtime(true);
         
         $day = date('d');
         $month = date('m');
@@ -50,7 +49,6 @@ class MainController
         $fileName = 'export_' . $day . $month . $year . '.csv';
         
         try {
-            
             $this->setMcApiKey();
             $this->setLists();
             $this->setListID();
@@ -64,14 +62,12 @@ class MainController
             } else {
                 echo '<p>Process failed.</p>';
             }
-
         } catch (Exception $e) {
             echo $e->getMessage();
             echo '<p>Process failed.</p>';
         } finally {
             echo "<p>Execution time: ".(microtime(true) - $timeStart)." s</p>";
         }
-        
     }
     
     /*********************************************************************************/
@@ -83,7 +79,6 @@ class MainController
     
     private function setMcApiKey()
     {
-        
         $envFilePath = __DIR__.'/../../';
         
         if (file_exists($envFilePath.'.env')) {
@@ -93,7 +88,6 @@ class MainController
         } else {
             throw new \Exception('No .env file.');
         }
-        
     }
     
     /*********************************************************************************/
@@ -105,13 +99,11 @@ class MainController
     
     private function setLists()
     {
-
         $mailChimpLists = new MailChimpHttp($this->mcApiKey);
         $mailChimpLists->verifySSL = false;
         $mailChimpLists->get('lists');
         $lists = $mailChimpLists->getFormattedResponse();
         $this->lists = $lists;
-
     }
     
     /*********************************************************************************/
@@ -135,13 +127,11 @@ class MainController
     
     private function setMembers()
     {
-        
         $mailChimpMembers = new MailChimpHttp($this->mcApiKey);
         $mailChimpMembers->verifySSL = false;
         $mailChimpMembers->get('lists/'.$this->listID.'/members');
         $members = $mailChimpMembers->getFormattedResponse();
         $this->members = $members;
-            
     }
     
     /*********************************************************************************/
@@ -153,13 +143,11 @@ class MainController
     
     private function setMergeFields()
     {
-        
         $mailChimpListMergeFields = new MailChimpHttp($this->mcApiKey);
         $mailChimpListMergeFields->verifySSL = false;
         $mailChimpListMergeFields->get('lists/'.$this->listID.'/merge-fields');
         $mergeFields = $mailChimpListMergeFields->getFormattedResponse();
         $this->mergeFields = $mergeFields;
-
     }
     
     /*********************************************************************************/
@@ -171,12 +159,10 @@ class MainController
     
     private function setParsedMembers()
     {
-        
         $membersParser = new MembersParser($this->members);
         $membersParser->parseData();
         $parsedMembers = $membersParser->getParsedData();
         $this->parsedMembers = $parsedMembers;
-        
     }
     
     /*********************************************************************************/
@@ -188,12 +174,10 @@ class MainController
     
     private function setParsedMergeFields()
     {
-        
         $mergeFieldsParser = new MergeFieldsParser($this->mergeFields);
         $mergeFieldsParser->parseData();
         $parsedMergeFields = $mergeFieldsParser->getParsedData();
         $this->parsedMergeFields = $parsedMergeFields;
-        
     }
     
     /*********************************************************************************/
@@ -205,10 +189,7 @@ class MainController
     
     private function process()
     {
-        
         $csvGenerator = new CSVGenerator($this->parsedMembers, $this->parsedMergeFields);
         return $csvGenerator->process(true);
-        
     }
-
 }

@@ -19,14 +19,12 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        
         $envFilePath = __DIR__.'/../../';
 
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new Dotenv\Dotenv($envFilePath);
             $dotenv->load();
         }
-
     }
 
     /*********************************************************************************/
@@ -55,5 +53,4 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
         $message = 'No environment variables in file .env. Create the file .env like .env.example.';
         $this->assertNotEmpty($MC_API_KEY, $message);
     }
-  
 }

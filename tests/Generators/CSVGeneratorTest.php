@@ -134,5 +134,4 @@ class CSVGeneratorTest extends \PHPUnit_Framework_TestCase
         $csvGenerator = new CSVGenerator($this->data, $this->mergeFields);
         $this->assertTrue($csvGenerator->process(false));
     }
-  
 }

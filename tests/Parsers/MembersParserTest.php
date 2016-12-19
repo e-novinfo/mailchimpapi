@@ -138,9 +138,7 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
     
     public function testParsingProcessFields()
     {
-        
         for ($i = 0; $i <= 5; $i++) {
-            
             $data = array();
             
             switch ($i) {
@@ -153,7 +151,7 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
                     $data = array( 'members' => array( array( 'id' => '', 'email_adress' => 'user@domaine.com', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
                     break;
                     
-                case 2: 
+                case 2:
                     $data = array( 'members' => array( array( 'id' => 'foo', 'email_adress' => '', 'status' => 'subscribed', 'location' => array( 'country_code' => 'CH' ), 'merge_fields' => array( 'LNAME' => 'John', 'FNAME' => 'Do', 'MERGEDFIELD' => 'foo' ) ) ) );
                     break;
                     
@@ -174,9 +172,6 @@ class MembersParserTest extends \PHPUnit_Framework_TestCase
             $membersParser = new MembersParser($data);
             $membersParser->parseData();
             $this->assertTrue(is_array($membersParser->getParsedData()));
-            
         }
-        
     }
-  
 }

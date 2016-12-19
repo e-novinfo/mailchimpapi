@@ -147,15 +147,13 @@ class MergeFieldsParser implements Parser
      * @return Array
      */
     
-    private function parseProcess() 
+    private function parseProcess()
     {
-        
         $parsedData = array();
             
         $i = 0;
 
         foreach ($this->dataToParse as $field) {
-
             $parsedData[$i] = array();
 
             if (!empty($field['merge_id'])) {
@@ -171,11 +169,9 @@ class MergeFieldsParser implements Parser
             }
 
             $i++;
-
         }
         
         return $parsedData;
-        
     }
     
     /*********************************************************************************/
@@ -192,11 +188,9 @@ class MergeFieldsParser implements Parser
     public function parseData()
     {
         if ($this->readyToParse) {
-            
             $parsedData = $this->parseProcess();
             $this->setParsedData($parsedData);
             return true;
-            
         } else {
             throw new \Exception('Data can\'t be parsed.');
         }
