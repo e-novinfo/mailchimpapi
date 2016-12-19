@@ -101,6 +101,8 @@ class MainController
     private function setMcApiKey()
     {
         $envFilePath = $this->envFileDir;
+        
+        echo $envFilePath;
 
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new \Dotenv\Dotenv($envFilePath);
