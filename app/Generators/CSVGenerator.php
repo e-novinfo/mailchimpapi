@@ -215,7 +215,7 @@ class CSVGenerator
     
     public function process($clean = true)
     {
-        if (($clean && $this->cleanDirectory()) || !$clean) {
+        if (($clean && is_bool($clean) && $this->cleanDirectory()) || !$clean) {
             $this->setFileName();
 
             $headers = $this->prepareHeaders();

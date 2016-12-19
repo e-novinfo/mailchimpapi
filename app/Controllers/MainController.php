@@ -25,6 +25,7 @@ class MainController
     /********************************/
     
     public $envFileDir;
+    public $externApiKey;
     
     private $mcApiKey;
     private $lists;
@@ -41,7 +42,7 @@ class MainController
     /********** CONSTRUCT **********/
     /*******************************/
 
-    public function __construct($pathToEnvFileDir = null)
+    public function __construct($pathToEnvFileDir = null, $externApiKey = null)
     {
         $timeStart = microtime(true);
         
@@ -51,8 +52,14 @@ class MainController
         $fileName = 'export_' . $day . $month . $year . '.csv';
         
         try {
-            $this->setEnvFileDir($pathToEnvFileDir);
-            $this->setMcApiKey();
+            
+            if (!empty($externApiKey)) {
+                $this->setMcApiKeyWithExtern($externApiKey);
+            } else {
+                $this->setEnvFileDir($pathToEnvFileDir);
+                $this->setMcApiKey();
+            }
+  
             $this->setLists();
             $this->setListID();
             $this->setMembers();
@@ -101,8 +108,6 @@ class MainController
     private function setMcApiKey()
     {
         $envFilePath = $this->envFileDir;
-        
-        echo $envFilePath;
 
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new \Dotenv\Dotenv($envFilePath);
@@ -111,6 +116,18 @@ class MainController
         } else {
             throw new \Exception('No .env file.');
         }
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+        
+    /************************************************/
+    /********** SET MC API KEY WITH EXTERN **********/
+    /************************************************/
+    
+    private function setMcApiKeyWithExtern($externApiKey)
+    {
+        $this->mcApiKey = $externApiKey;
     }
     
     /*********************************************************************************/

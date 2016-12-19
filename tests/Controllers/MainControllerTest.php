@@ -40,4 +40,47 @@ class MainControllerTest extends \PHPUnit_Framework_TestCase
         $message = 'No environment variables in file .env. Create the file .env like .env.example.';
         $this->assertNotEmpty($MC_API_KEY, $message);
     }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /****************************************/
+    /********** TEST INSTANTIATION **********/
+    /****************************************/
+
+    public function testControllerInstantiation()
+    {
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+
+        $mainController = new MainController(null, $MC_API_KEY);
+        $this->assertInstanceOf('\enovinfo\MailChimpApi\Controllers\MainController', $mainController);
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+
+    /*******************************************************/
+    /********** TEST FAIL INSTANTIATION EXCEPTION **********/
+    /*******************************************************/
+
+    /**
+     * @expectedException \Exception
+     */
+    
+    public function testControllerInstantiationException()
+    {
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $envFilePath = __DIR__.'/../foo/';
+
+        $mainController = new MainController($envFilePath, null);
+    }
 }

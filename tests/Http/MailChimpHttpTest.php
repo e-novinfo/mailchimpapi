@@ -188,6 +188,29 @@ class MailChimpHttpTest extends \PHPUnit_Framework_TestCase
     /*********************************************************************************/
     /*********************************************************************************/
     
+    /**************************************************************/
+    /********** TEST REQUEST FORMATTED RESPONSE IS ARRAY **********/
+    /**************************************************************/
+    
+    public function testRequestFormattedResponseIsArray()
+    {
+        $MC_API_KEY = getenv('MC_API_KEY');
+
+        if (!$MC_API_KEY) {
+            $this->markTestSkipped('No API key in .env file.');
+        }
+        
+        $mailChimpHttp = new MailChimpHttp($MC_API_KEY);
+        $mailChimpHttp->verifySSL = false;
+        
+        $mailChimpHttp->get('lists');
+        
+        $this->assertTrue(is_array($mailChimpHttp->getFormattedResponse()));
+    }
+    
+    /*********************************************************************************/
+    /*********************************************************************************/
+    
     /*********************************************/
     /********** TEST REQUEST STATUS 404 **********/
     /*********************************************/
