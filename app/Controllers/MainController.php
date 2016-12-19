@@ -81,6 +81,8 @@ class MainController
     {
         $envFilePath = __DIR__.'/../../';
         
+        echo $envFilePath;
+        
         if (file_exists($envFilePath.'.env')) {
             $dotenv = new \Dotenv\Dotenv($envFilePath);
             $dotenv->load();
